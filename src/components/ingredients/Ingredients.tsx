@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { nanoid } from 'nanoid'
 import { Ingredient } from './ingredient.types'
 import IngredientsList from './IngredientsList'
@@ -38,9 +38,9 @@ const Ingredients = (props: IngredientsProps) => {
     ])
   }
 
-  const deleteIngredient = (id: string) => {
+  const deleteIngredient = useCallback((id: string) => {
     setIngredients((ingredients) => ingredients.filter((ing) => ing.id !== id))
-  }
+  }, [])
 
   const createIngredientsHeaderText = () => {
     console.log('createIngredientsHeaderText called')
