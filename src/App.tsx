@@ -1,8 +1,10 @@
 import { Link, Route, Routes } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import './App.css'
-import About from './views/About'
-import Contact from './views/Contact'
-import Home from './views/Home'
+
+const Contact = lazy(() => import('./views/Contact'))
+const About = lazy(() => import('./views/About'))
+const Home = lazy(() => import('./views/Home'))
 
 function App() {
   return (
@@ -16,12 +18,13 @@ function App() {
           <Link to="/contact">Contact</Link>
         </nav>
       </div>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <Suspense fallback={<div className="flexjustify-center">Loading</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </Suspense>
     </div>
   )
 }
